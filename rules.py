@@ -1,0 +1,1 @@
+#Ficheiro para as regras
