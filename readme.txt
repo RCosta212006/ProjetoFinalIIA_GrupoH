@@ -12,3 +12,37 @@ Cada regra tem:
 - risco
 - prioridade
 - ação
+
+Fontes para as regras:
+- https://prociv.gov.pt
+    - A Proteção Civil indica que temperaturas elevadas, baixa humidade e vento favorecem o risco e a propagação de incêndios.
+- https://www.eea.europa.eu
+    - A EEA identifica ondas de calor como eventos extremos com impacto significativo na saúde pública e no ambiente urbano.
+- https://wmo.int
+    - A WMO define ondas de calor como períodos prolongados de temperatura anormalmente elevada, podendo justificar alertas baseados em limiares térmicos.
+- https://www.ipma.pt
+    - O IPMA utiliza limiares de precipitação e vento para emitir avisos meteorológicos, justificando a utilização de regras baseadas nestas variáveis.
+- https://www.who.int
+    - A OMS estabelece valores de referência para partículas finas (PM2.5), sendo níveis acima de 25 µg/m³ considerados prejudiciais à saúde a curto prazo.
+- https://www.epa.gov
+    - A EPA identifica hidrocarbonetos não metânicos (NMHC) como precursores da formação de ozono troposférico, justificando a sua inclusão em regras de qualidade do ar.
+
+
+Regras baseadas em incêndio, calor e propagação
+
+Regra -> fire_high:
+- A ANEPC/DECIR considera temperatura, humidade relativa e vento como factores relevantes no risco de incêndio rural.
+- Esta regra foi definida com base na relevância operacional da temperatura e da humidade relativa na avaliação do risco de incêndio rural, referida na documentação da Protecção Civil.
+
+Regra -> fire_spread:
+- A documentação da Protecção Civil e DECIR reforça a importância de vento, temperatura e humidade na perigosidade e propagação do incêndio rural.
+
+Regra -> extreme_heat:
+- O IPMA emite avisos para “tempo quente”, e a WMO enquadra as ondas de calor como fenómenos meteorológicos extremos que justificam alertas.
+- O IPMA usa avisos para tempo quente e a WMO reconhece ondas de calor como fenómenos extremos.
+
+
+Regras baseadas em precipitação e vento
+
+Regra -> heavy_rain:
+- O IPMA usa 10–20 mm/1h como intervalo de aviso amarelo para precipitação.
