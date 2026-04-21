@@ -1,3 +1,4 @@
+# Informações :)
 O sistema foi dividido em dois componentes principais.
 O primeiro (rules_engine.py) implementa um sistema baseado em conhecimento com regras “se-então”, responsável pela inferência determinística de riscos e acções.
 O segundo (bayes_alerts.py) implementa uma Rede Bayesiana simples para modelar incerteza e actualizar probabilidades com base em evidência observada.
@@ -13,7 +14,7 @@ Cada regra tem:
 - prioridade
 - ação
 
-Fontes para as regras:
+## Fontes para as regras:
 - https://prociv.gov.pt
     - A Proteção Civil indica que temperaturas elevadas, baixa humidade e vento favorecem o risco e a propagação de incêndios.
 - https://www.eea.europa.eu
