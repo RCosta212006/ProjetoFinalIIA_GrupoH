@@ -18,6 +18,8 @@ from itertools import product
 # Definição da Rede Bayesiana
 # ---------------------------------------------------------
 
+# calor + pouca humidade + vento → maior probabilidade de incêndio
+
 # Ordem dos nós da rede
 VARIABLES = [
     "HeatExtreme",
@@ -26,6 +28,13 @@ VARIABLES = [
     "FireRisk"
 ]
 
+# O calor extremo não depende de outro nó
+# A humidade baixa não depende de outro nó
+# O vento forte não depende de outro nó
+
+#HeatExtreme ─┐
+#LowHumidity ─┼──> FireRisk
+#StrongWind  ─┘
 
 # Pais de cada nó
 PARENTS = {
@@ -36,7 +45,7 @@ PARENTS = {
 }
 
 
-# Tabelas de probabilidade
+# Tabela de Probabilidades Condicionais
 CPT = {
     # Probabilidades a priori
     # P(HeatExtreme=True)
@@ -73,6 +82,7 @@ CPT = {
 # Funções auxiliares da Rede Bayesiana
 # ---------------------------------------------------------
 
+# Esta função calcula a probabilidade de uma variável ter um certo valor
 def probability(variable, value, evidence):
     """
     Devolve a probabilidade de uma variável ter determinado valor,
@@ -236,3 +246,8 @@ if __name__ == "__main__":
     print("\nResultado da inferência Bayesiana:")
     print(f"P(FireRisk=True) = {result[True]:.2f}")
     print(f"P(FireRisk=False) = {result[False]:.2f}")
+
+    print("Demonstração de uso de inferência por enumeração:")
+    print(query("FireRisk", {"HeatExtreme": True}))
+    print(query("FireRisk", {"HeatExtreme": True, "LowHumidity": True}))
+    print(query("FireRisk", {"HeatExtreme": True, "LowHumidity": True, "StrongWind": True}))

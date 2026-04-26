@@ -1,5 +1,5 @@
 # Informações :)
-O sistema foi dividido em dois componentes principais.
+O Módulo 1 foi dividido em dois componentes principais.
 O primeiro (rules_engine.py) implementa um sistema baseado em conhecimento com regras “se-então”, responsável pela inferência determinística de riscos e acções.
 O segundo (bayes_alerts.py) implementa uma Rede Bayesiana simples para modelar incerteza e actualizar probabilidades com base em evidência observada.
 
@@ -8,18 +8,22 @@ Para além de regras específicas para cada fenómeno, foram incluídas regras c
 
 A Rede Bayesiana complementa o motor de regras. Enquanto as regras do rules_engine.py produzem conclusões determinísticas, a Rede Bayesiana permite representar incerteza. Neste exemplo, os nós HeatExtreme, LowHumidity e StrongWind influenciam probabilisticamente o nó FireRisk. Assim, em vez de concluir apenas que existe ou não risco, o sistema estima a probabilidade de risco de incêndio com base na evidência observada.
 
+Quando todos os valores das variáveis parentais são conhecidos, a probabilidade é obtida directamente da tabela de probabilidades condicionais (CPT). No entanto, quando existe incerteza em algumas variáveis, é necessário aplicar inferência por enumeração, somando as probabilidades de todas as combinações possíveis das variáveis desconhecidas.
 
 <img width="1536" height="1024" alt="Image" src="https://github.com/user-attachments/assets/72fbe847-e2cd-4930-ba4c-92d61a73b65d" />
+
+
+
 
 
 
 Estrutura das regras
 
 Cada regra tem:
-- condição
-- risco
-- prioridade
-- ação
+- Condição
+- Risco
+- Prioridade
+- Ação
 
 ## Fontes para as regras:
 - https://prociv.gov.pt
@@ -53,3 +57,6 @@ Regras baseadas em precipitação e vento
 
 Regra -> heavy_rain:
 - O IPMA usa 10–20 mm/1h como intervalo de aviso amarelo para precipitação.
+
+
+Por indicação da docente, a base de conhecimentos foi implementada directamente no ficheiro rules_engine.py, através da função load_rules(), em vez de ser guardada num ficheiro regras.json.
