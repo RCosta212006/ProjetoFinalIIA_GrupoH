@@ -235,7 +235,7 @@ def process_dataset(file_path):
 # Corre o programa
 if __name__ == "__main__":
     # Nome do ficheiro de entrada
-    input_file = "processed_lisboa_porto_air_quality.csv"
+    input_file = r"C:\Users\rodri\OneDrive\Desktop\ProjetoFinalIIA\ProjetoFinalIIA_GrupoH\processed_lisboa_porto_air_quality.csv"
 
     # Nome do ficheiro de saída
     output_file = "alert_results.csv"
