@@ -9,7 +9,7 @@ Para além de regras específicas para cada fenómeno, foram incluídas regras c
 A Rede Bayesiana complementa o motor de regras. Enquanto as regras do rules_engine.py produzem conclusões determinísticas, a Rede Bayesiana permite representar incerteza. Neste exemplo, os nós HeatExtreme, LowHumidity e StrongWind influenciam probabilisticamente o nó FireRisk. Assim, em vez de concluir apenas que existe ou não risco, o sistema estima a probabilidade de risco de incêndio com base na evidência observada.
 
 
-![Rede Bayesiana](C:\Users\rodri\OneDrive\Desktop\ProjetoFinalIIA\FireRiskRedeBayesiana.png)
+![Rede Bayesiana](FireRiskRedeBayesiana.png)
 
 
 
