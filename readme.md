@@ -6,6 +6,8 @@ O segundo (bayes_alerts.py) implementa uma Rede Bayesiana simples para modelar i
 O sistema desenvolvido integra diferentes tipos de risco — meteorológicos, ambientais e de qualidade do ar — permitindo uma abordagem híbrida à avaliação de alertas. 
 Para além de regras específicas para cada fenómeno, foram incluídas regras combinadas que capturam interacções entre variáveis, como calor extremo e poluição, ou vento forte e risco de incêndio, aproximando o sistema de cenários reais mais complexos.
 
+A Rede Bayesiana complementa o motor de regras. Enquanto as regras do rules_engine.py produzem conclusões determinísticas, a Rede Bayesiana permite representar incerteza. Neste exemplo, os nós HeatExtreme, LowHumidity e StrongWind influenciam probabilisticamente o nó FireRisk. Assim, em vez de concluir apenas que existe ou não risco, o sistema estima a probabilidade de risco de incêndio com base na evidência observada.
+
 Estrutura das regras
 
 Cada regra tem:
@@ -41,7 +43,6 @@ Regra -> fire_spread:
 Regra -> extreme_heat:
 - O IPMA emite avisos para “tempo quente”, e a WMO enquadra as ondas de calor como fenómenos meteorológicos extremos que justificam alertas.
 - O IPMA usa avisos para tempo quente e a WMO reconhece ondas de calor como fenómenos extremos.
-
 
 Regras baseadas em precipitação e vento
 
