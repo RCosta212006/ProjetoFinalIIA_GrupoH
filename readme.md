@@ -100,6 +100,8 @@ Exemplo:
 P(Incendio | Calor=True) = nº casos com incêndio e calor / nº casos com calor
 ```
 
+<img width="1536" height="1024" alt="Image" src="https://github.com/user-attachments/assets/fc335f9c-3a34-4e0f-9320-4fce65236f7b" />
+
 ## ⚠️ Decisões de implementação
 
 * As regras foram **hardcoded** conforme solicitado (sem `regras.json`);
@@ -110,7 +112,6 @@ P(Incendio | Calor=True) = nº casos com incêndio e calor / nº casos com calor
 
   * Sistema simbólico (regras)
   * Sistema probabilístico (inferência)
-
 
 
 ## Fontes para as regras:
