@@ -1,252 +1,92 @@
-# Este ficheiro vai:
-# - Definir regras;
-# - Aplicar regras ao dataset;
-# - Gerar riscos e acções;
-
 import pandas as pd
-
-# Função responsável pela verificação de dados inexistentes
-def has_values(row, columns):
-    return all(pd.notna(row[col]) for col in columns)
-
-#Vai substituir o ficheiro regras.json
-def load_rules():
-    return [
-
-        # ----------- Regras baseadas em incêndio, calor e propagação -----------
-
-        # Risco de incêndio alto
-        # Muito calor + pouca humidade → vegetação seca → risco alto
-        {
-            "name": "fire_high",
-            "condition": lambda row: has_values(row, ["temperature_c", "humidity_percent"]) and row["temperature_c"] > 40 and row["humidity_percent"] < 20,
-            "risk": "Risco de incêndio alto",
-            "priority": "critica",
-            "action": "Emitir alerta máximo e activar meios de combate a incêndios."
-        },
-
-        # Risco de propagação rápida de incêndio
-        # Calor + humidade baixa + vento
-        {
-            "name": "fire_spread",
-            "condition": lambda row: has_values(row, ["temperature_c", "humidity_percent", "wind_speed_kmh"])
-                            and row["temperature_c"] > 30
-                            and row["humidity_percent"] < 35
-                            and row["wind_speed_kmh"] > 20,
-            "risk": "Elevado risco de propagação de incêndio",
-            "priority": "critica",
-            "action": "Preparar meios de contenção e reforçar vigilância."
-        },
-
-        # Calor extremo
-        {
-            "name": "extreme_heat",
-            "condition": lambda row: has_values(row, ["temperature_c"]) and row["temperature_c"] > 38,
-            "risk": "Calor extremo",
-            "priority": "alta",
-            "action": "Avisar grupos vulneráveis e activar medidas preventivas."
-        },
-        
-        # ----------- Regras baseadas em precipitação e vento -----------
-
-        # Precipitação intensa
-        {
-            "name": "heavy_rain",
-            "condition": lambda row: has_values(row, ["precipitation_mm"]) and row["precipitation_mm"] >= 10,
-            "risk": "Precipitação intensa",
-            "priority": "alta",
-            "action": "Monitorizar zonas urbanas com risco de inundação."
-        },
-
-        # Precipitação muito intensa
-        {
-            "name": "very_heavy_rain",
-            "condition": lambda row: has_values(row, ["precipitation_mm"]) and row["precipitation_mm"] >= 20,
-            "risk": "Precipitação muito intensa",
-            "priority": "critica",
-            "action": "Reforçar alerta de inundação e activar prevenção local."
-        },
-
-        # Vento forte
-        {
-            "name": "strong_wind",
-            "condition": lambda row: has_values(row, ["wind_speed_kmh"]) and row["wind_speed_kmh"] >= 20,
-            "risk": "Vento forte",
-            "priority": "media",
-            "action": "Avisar serviços municipais e monitorizar estruturas expostas."
-        },
-
-        # Tempestade local
-        {
-            "name": "local_storm_risk",
-            "condition": lambda row: has_values(row, ["precipitation_mm", "wind_speed_kmh"]) and row["precipitation_mm"] >= 10 and row["wind_speed_kmh"] >= 20,
-            "risk": "Risco de tempestade local",
-            "priority": "alta",
-            "action": "Emitir alerta meteorológico local e reforçar prevenção."
-        },
-
-        # ----------- Regras baseadas em qualidade do ar -----------
-
-        # Poluição por PM2.5
-        {
-            "name": "pm25_high",
-            "condition": lambda row: has_values(row, ["PM2.5"]) and row["PM2.5"] > 25,
-            "risk": "Poluição elevada por PM2.5",
-            "priority": "alta",
-            "action": "Recomendar redução de exposição ao ar livre."
-        },
-
-        # Poluição por PM10
-        {
-            "name": "pm10_high",
-            "condition": lambda row: has_values(row, ["PM10"]) and row["PM10"] > 45,
-            "risk": "Poluição elevada por PM10",
-            "priority": "media",
-            "action": "Recomendar precaução respiratória a grupos sensíveis."
-        },
-
-        # NO2 elevado
-        {
-            "name": "no2_high",
-            "condition": lambda row: has_values(row, ["NO2"]) and row["NO2"] > 200,
-            "risk": "Poluição elevada por NO2",
-            "priority": "alta",
-            "action": "Emitir aviso de qualidade do ar."
-        },
-
-        # O3 elevado
-        {
-            "name": "o3_high",
-            "condition": lambda row: has_values(row, ["O3"]) and row["O3"] > 100,
-            "risk": "Ozono troposférico elevado",
-            "priority": "media",
-            "action": "Alertar grupos vulneráveis para evitar esforço físico no exterior."
-        },
-
-        # ----------- Regras híbridas -----------
-
-        # Calor extremo + PM2.5 elevado
-        {
-            "name": "heat_pm25_combined",
-            "condition": lambda row: has_values(row, ["temperature_c", "PM2.5"]) and row["temperature_c"] > 35 and row["PM2.5"] > 25,
-            "risk": "Calor extremo com poluição por PM2.5",
-            "priority": "critica",
-            "action": "Alertar população vulnerável e restringir exposição exterior."
-        },
-
-        # Incêndio com vento
-        {
-            "name": "fire_wind_critical",
-            "condition": lambda row: has_values(row, ["temperature_c", "humidity_percent", "wind_speed_kmh"]) and row["temperature_c"] > 35 and row["humidity_percent"] < 30 and row["wind_speed_kmh"] >= 36,
-            "risk": "Risco crítico de incêndio com vento forte",
-            "priority": "critica",
-            "action": "Activar plano de emergência local."
-        }
-    ]
+import sys
 
 
-def infer_row(row, rules):
-    """
-    Aplica todas as regras a uma linha do dataset.
-    Se a condição de uma regra for verdadeira, essa regra é activada.
-    """
+def sistema_de_regras(row):
+    alertas = []
+    acoes = []
 
-    matched_rules = []
+    # Vai buscar o valor da coluna associada, se não existir coloca como 0
+    temp = row.get("temperature_c", 0)
+    humidade = row.get("humidity_percent", 0)
+    vento = row.get("wind_speed_kmh", 0)
+    precipitacao = row.get("precipitation_mm", 0)
 
-    for rule in rules:
-        try:
-            if rule["condition"](row):
-                matched_rules.append(rule)
-        except Exception as error:
-            print(f"Erro ao avaliar a regra {rule['name']}: {error}")
+    no2 = row.get("NO2", 0)
+    pm10 = row.get("PM10", 0)
+    pm25 = row.get("PM2.5", 0)
+    o3 = row.get("O3", 0)
 
-    return matched_rules
+    # Regras -> Adiciona o alerta na lista de alertas e a ação associada à lista de ações
+    if temp > 40 and humidade < 20:
+        alertas.append("risco_incendio_alto")
+        acoes.append("Activar meios de vigilância e prevenção de incêndios")
 
-# Decide qual o risco mais importante
-def highest_priority(rules):
-    """
-    Recebe a lista de regras que foram activadas para uma determinada linha
-    e devolve a prioridade mais elevada encontrada.
-    """
+    elif temp > 35 and humidade < 30:
+        alertas.append("risco_calor_extremo")
+        acoes.append("Emitir aviso de calor à população")
 
-    # Se nenhuma regra foi activada, não existe prioridade
-    if not rules:
-        return "nenhuma"
+    if precipitacao > 30:
+        alertas.append("risco_inundacao")
+        acoes.append("Monitorizar zonas baixas e linhas de água")
 
-    # Mapeamento das prioridades para valores numéricos
-    # Isto permite comparar prioridades facilmente
-    priority_order = {
-        "baixa": 1,
-        "media": 2,
-        "alta": 3,
-        "critica": 4
-    }
+    if vento > 60:
+        alertas.append("vento_forte")
+        acoes.append("Recomendar evitar zonas arborizadas")
 
-    # Procura a regra com maior prioridade
-    highest = max(rules, key=lambda rule: priority_order[rule["priority"]])
+    if no2 > 100:
+        alertas.append("poluicao_no2_alta")
+        acoes.append("Reduzir tráfego em zonas críticas")
 
-    return highest["priority"]
+    if pm10 > 50:
+        alertas.append("particulas_pm10_altas")
+        acoes.append("Avisar população sensível")
 
-# Lê o CSV e aplica as regras a todas as linhas
-def process_dataset(file_path):
-    """
-    Lê o ficheiro CSV, aplica o motor de inferência a cada linha
-    e devolve um novo DataFrame com os riscos detectados e acções recomendadas.
-    """
+    if pm25 > 25:
+        alertas.append("particulas_pm25_altas")
+        acoes.append("Recomendar uso de máscara a grupos vulneráveis")
 
-    # Leitura do dataset
-    # O ficheiro usa separador ';'
-    df = pd.read_csv(file_path, sep=";")
+    if o3 > 120:
+        alertas.append("ozono_alto")
+        acoes.append("Evitar exercício físico ao ar livre")
 
-    # Carrega a base de conhecimento
-    rules = load_rules()
+    if temp < 5:
+        alertas.append("frio_extremo")
+        acoes.append("Activar apoio a população vulnerável")
 
-    # Lista onde vão ser guardados os resultados finais
-    outputs = []
+    if humidade > 90 and temp < 10:
+        alertas.append("risco_nevoeiro")
+        acoes.append("Emitir aviso para condução prudente")
 
-    # Percorre cada linha do dataset
-    for _, row in df.iterrows():
+    if not alertas:
+        alertas.append("sem_alerta")
+        acoes.append("Sem acção necessária")
 
-        # Aplica as regras à linha actual
-        matched_rules = infer_row(row, rules)
+    # Os alertas todos juntos numa só string e as ações todas juntas numa só string.
+    return "; ".join(alertas), "; ".join(acoes)
 
-        # Extrai os nomes dos riscos detectados
-        risks = [rule["risk"] for rule in matched_rules]
 
-        # Extrai as acções recomendadas
-        actions = [rule["action"] for rule in matched_rules]
+# Cria a função principal do programa
+def main(input_csv):
+    df = pd.read_csv(input_csv, sep=";")
 
-        # Extrai os nomes técnicos das regras activadas
-        rule_names = [rule["name"] for rule in matched_rules]
+    # Cria uma cópia da tabela original
+    # Assim, o programa mantém os dados originais e acrescenta novas colunas
+    resultados = df.copy()
 
-        # Guarda o resultado desta linha
-        outputs.append({
-            "city": row["city"],
-            "datetime": row["datetime"],
-            "matched_rules": " | ".join(rule_names) if rule_names else "Nenhuma",
-            "detected_risks": " | ".join(risks) if risks else "Nenhum risco detectado",
-            "recommended_actions": " | ".join(actions) if actions else "Sem acção recomendada",
-            "priority": highest_priority(matched_rules)
-        })
+    # Cria duas novas colunas: alerta e acoes_recomendadas
+    # Aplica a função sistema_de_regras a cada linha
+    # Como a função devolve duas coisas, pd.Series permite colocá-las em duas colunas diferentes
+    resultados[["alertas", "acoes_recomendadas"]] = resultados.apply(
+        lambda row: pd.Series(sistema_de_regras(row)),
+        axis=1
+    )
 
-    # Converte os resultados para DataFrame
-    return pd.DataFrame(outputs)
+    # Grava a tabela final no ficheiro alert_results.csv.
+    resultados.to_csv("alert_results.csv", index=False)
+    print("Ficheiro alert_results.csv criado com sucesso.")
 
-# Corre o programa
+
 if __name__ == "__main__":
-    # Nome do ficheiro de entrada
-    input_file = r"C:\Users\rodri\OneDrive\Desktop\ProjetoFinalIIA\ProjetoFinalIIA_GrupoH\processed_lisboa_porto_air_quality.csv"
-
-    # Nome do ficheiro de saída
-    output_file = "alert_results.csv"
-
-    # Processa o dataset
-    result_df = process_dataset(input_file)
-
-    # Mostra as primeiras linhas no terminal
-    print(result_df.head(10))
-
-    # Guarda os resultados num novo CSV
-    result_df.to_csv(output_file, index=False)
-
-    print(f"\nProcessamento concluído. Resultados guardados em: {output_file}")
+    ficheiro = sys.argv[1] if len(sys.argv) > 1 else "processed_lisboa_porto_air_quality.csv"
+    main(ficheiro)

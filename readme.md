@@ -1,29 +1,98 @@
-# Informações :)
-O Módulo 1 foi dividido em dois componentes principais.
-O primeiro (rules_engine.py) implementa um sistema baseado em conhecimento com regras “se-então”, responsável pela inferência determinística de riscos e acções.
-O segundo (bayes_alerts.py) implementa uma Rede Bayesiana simples para modelar incerteza e actualizar probabilidades com base em evidência observada.
+## Módulo 1 — Sistema Baseado em Conhecimento para Gestão de Emergências
+📌 Descrição
 
-O sistema desenvolvido integra diferentes tipos de risco — meteorológicos, ambientais e de qualidade do ar — permitindo uma abordagem híbrida à avaliação de alertas. 
-Para além de regras específicas para cada fenómeno, foram incluídas regras combinadas que capturam interacções entre variáveis, como calor extremo e poluição, ou vento forte e risco de incêndio, aproximando o sistema de cenários reais mais complexos.
+Este módulo implementa um sistema de apoio à decisão para a Protecção Civil, capaz de:
 
-A Rede Bayesiana complementa o motor de regras. Enquanto as regras do rules_engine.py produzem conclusões determinísticas, a Rede Bayesiana permite representar incerteza. Neste exemplo, os nós HeatExtreme, LowHumidity e StrongWind influenciam probabilisticamente o nó FireRisk. Assim, em vez de concluir apenas que existe ou não risco, o sistema estima a probabilidade de risco de incêndio com base na evidência observada.
+Detectar riscos ambientais a partir de dados reais;
+Gerar alertas e acções recomendadas com base em regras;
+Modelar incerteza através de uma rede bayesiana simples.
 
-Quando todos os valores das variáveis parentais são conhecidos, a probabilidade é obtida directamente da tabela de probabilidades condicionais (CPT). No entanto, quando existe incerteza em algumas variáveis, é necessário aplicar inferência por enumeração, somando as probabilidades de todas as combinações possíveis das variáveis desconhecidas.
+O sistema combina IA simbólica (regras) com IA probabilística (rede bayesiana).
 
-<img width="1536" height="1024" alt="Image" src="https://github.com/user-attachments/assets/72fbe847-e2cd-4930-ba4c-92d61a73b65d" />
+📂 Estrutura
+.
+├── rules_engine.py
+├── bayes_alerts.py
+├── alert_results.csv
+├── processed_lisboa_porto_air_quality.csv
+└── README.md
+⚙️ Funcionamento
+1. Motor de Regras
 
+O ficheiro rules_engine.py:
 
+Lê o dataset de entrada;
+Aplica regras "se-então" (hardcoded com if/elif);
+Gera alertas e acções recomendadas;
+Guarda os resultados em alert_results.csv.
 
+Exemplo de regra:
 
+Se temperatura > 40°C ∧ humidade < 20% → risco_incendio_alto
+2. Ficheiro intermédio
 
+O ficheiro alert_results.csv contém:
 
-Estrutura das regras
+Dados originais;
+Coluna alertas;
+Coluna acoes_recomendadas.
 
-Cada regra tem:
-- Condição
-- Risco
-- Prioridade
-- Ação
+Este ficheiro serve como base para a rede bayesiana.
+
+3. Rede Bayesiana
+
+O ficheiro bayes_alerts.py:
+
+Lê alert_results.csv;
+Converte alertas em variáveis booleanas:
+Incendio
+Calor
+Vento
+Poluicao
+Calcula probabilidades usando inferência por enumeração.
+🧠 Metodologia
+IA Simbólica (Regras)
+
+As regras representam conhecimento explícito:
+
+if temp > 40 and humidade < 20:
+    risco_incendio_alto
+
+Estas regras transformam dados numéricos em significado.
+
+IA Probabilística (Rede Bayesiana)
+
+A rede bayesiana calcula probabilidades com base na frequência dos dados:
+
+P(Calor)
+P(Incendio | Calor=True)
+P(Poluicao | Calor=True)
+
+Exemplo:
+
+P(Incendio | Calor=True) = nº casos com incêndio e calor / nº casos com calor
+▶️ Como executar
+1. Gerar alertas
+python rules_engine.py processed_lisboa_porto_air_quality.csv
+
+Gera:
+
+alert_results.csv
+2. Executar rede bayesiana
+python bayes_alerts.py alert_results.csv
+
+Exemplo de output:
+
+P(Calor): 0.40
+P(Incendio | Calor=True): 0.50
+⚠️ Decisões de implementação
+As regras foram hardcoded conforme solicitado (sem regras.json);
+A rede bayesiana não é hardcoded:
+As probabilidades são calculadas automaticamente a partir dos dados;
+Existe separação clara entre:
+Sistema simbólico (regras)
+Sistema probabilístico (inferência)
+
 
 ## Fontes para as regras:
 - https://prociv.gov.pt
