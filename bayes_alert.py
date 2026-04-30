@@ -53,10 +53,7 @@ def preparar_variaveis_bayes(df):
     df_bayes["Incendio"] = df["alertas"].str.contains("risco_incendio_alto", na=False)
     df_bayes["Calor"] = df["alertas"].str.contains("risco_calor_extremo|risco_incendio_alto", na=False)
     df_bayes["Vento"] = df["alertas"].str.contains("vento_forte", na=False)
-    df_bayes["Poluicao"] = df["alertas"].str.contains(
-        "poluicao_no2_alta|particulas_pm10_altas|particulas_pm25_altas|ozono_alto",
-        na=False
-    )
+    df_bayes["Poluicao"] = df["alertas"].str.contains( "poluicao_no2_alta|particulas_pm10_altas|particulas_pm25_altas|ozono_alto",na=False)
 
     return df_bayes
 
@@ -67,21 +64,9 @@ def inferencia_por_enumeracao(df_bayes):
         "P(Vento)": probabilidade_evento(df_bayes, "Vento"),
         "P(Poluicao)": probabilidade_evento(df_bayes, "Poluicao"),
         "P(Incendio)": probabilidade_evento(df_bayes, "Incendio"),
-        "P(Incendio | Calor=True)": probabilidade_condicional(
-            df_bayes,
-            "Incendio",
-            {"Calor": True}
-        ),
-        "P(Incendio | Calor=True, Vento=True)": probabilidade_condicional(
-            df_bayes,
-            "Incendio",
-            {"Calor": True, "Vento": True}
-        ),
-        "P(Poluicao | Calor=True)": probabilidade_condicional(
-            df_bayes,
-            "Poluicao",
-            {"Calor": True}
-        )
+        "P(Incendio | Calor=True)": probabilidade_condicional( df_bayes,"Incendio",{"Calor": True}),
+        "P(Incendio | Calor=True, Vento=True)": probabilidade_condicional(df_bayes,"Incendio",{"Calor": True, "Vento": True}),
+        "P(Poluicao | Calor=True)": probabilidade_condicional(df_bayes,"Poluicao",{"Calor": True})
     }
 
     return resultados
