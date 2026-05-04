@@ -45,9 +45,11 @@ class BayesianNetwork:
     """
 
     def __init__(self):
+        # Dicionário vazio onde vão ficar guardadas as tabelas de probabilidades
         self.cpds = {}
 
         self.parents = {
+            # Estes nós não têm pais. São nós de entrada
             "temp": [],
             "humidade": [],
             "vento": [],
@@ -55,49 +57,69 @@ class BayesianNetwork:
             "no2": [],
             "o3": [],
 
+            # O nó incendio depende de temperatura, humidade e vento
             "incendio": ["temp", "humidade", "vento"],
+
+            # O nó poluicao depende de PM10, NO2, O3 e incêndio
             "poluicao": ["pm10", "no2", "o3", "incendio"]
         }
 
+        # Dicionário para guardar as categorias possíveis de cada variável
         self.categories = {}
 
     def fit(self, df, alpha=1.0):
     
         #Estima as CPDs através de frequências observadas, usando suavização de Laplace.    
 
+        # Percorre todos os nós da rede
         for node in self.parents:
-            if hasattr(df[node], "cat"):
+            # Verifica se a coluna é categórica
+            if hasattr(df[node], "cat"): # Se for categórica, guarda todas as categorias possíveis
                 self.categories[node] = list(df[node].cat.categories)
             else:
-                self.categories[node] = list(df[node].unique())
+                self.categories[node] = list(df[node].unique()) # Se não for categórica, guarda os valores únicos existentes
 
+            # Converte todas as categorias para texto
             self.categories[node] = [str(v) for v in self.categories[node]]
 
         for node, pais in self.parents.items():
+            # Guarda os valores possíveis do nó
             vals_node = self.categories[node]
+            # Cria uma CPD vazia para esse nó
             self.cpds[node] = {}
 
+            # Verifica se o nó não tem pais
             if not pais:
+                # Conta quantas vezes aparece cada categoria
                 counts = df[node].astype(str).value_counts()
-                total = counts.sum() + alpha * len(vals_node)
 
+                # Calcula o total com suavização
+                total = counts.sum() + alpha * len(vals_node)
+                
+                # Cria a CPD para um nó sem pais
+                # Calcula a probabilidade de cada valor
                 self.cpds[node][()] = {
                     v: (counts.get(v, 0) + alpha) / total
                     for v in vals_node
                 }
 
             else:
+                # Vai buscar as categorias possíveis dos pais
                 vals_pais = [self.categories[p] for p in pais]
 
+                # Cria todas as combinações possíveis dos pais
                 for combo_pais in product(*vals_pais):
+                    # Cria uma máscara inicial em que todas as linhas são aceites
                     mask = pd.Series([True] * len(df), index=df.index)
 
+                    # Percorre cada pai e o respectivo valor da combinação
                     for p, v in zip(pais, combo_pais):
+                        # Vai filtrando a tabela para ficar apenas com as linhas dessa combinação
                         mask &= df[p].astype(str) == str(v)
 
-                    subset = df[mask][node].astype(str)
-                    counts = subset.value_counts()
-                    total = counts.sum() + alpha * len(vals_node)
+                    subset = df[mask][node].astype(str) # Depois de filtrar, guarda apenas a coluna do nó actual
+                    counts = subset.value_counts() # Conta quantas vezes cada valor aparece nesse subconjunto
+                    total = counts.sum() + alpha * len(vals_node) # Calcula o total com suavização
 
                     self.cpds[node][combo_pais] = {
                         v: (counts.get(v, 0) + alpha) / total
