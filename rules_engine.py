@@ -1,7 +1,6 @@
 import pandas as pd
 import sys
 
-
 def sistema_de_regras(row):
     alertas = []
     acoes = []
@@ -104,10 +103,10 @@ def main(input_csv):
     )
 
     # Grava a tabela final no ficheiro alert_results.csv.
-    resultados.to_csv("alert_results.csv", index=False)
+    resultados.to_csv("csv/alert_results.csv", index=False)
     print("Ficheiro alert_results.csv criado com sucesso.")
 
 
 if __name__ == "__main__":
-    ficheiro = sys.argv[1] if len(sys.argv) > 1 else "processed_lisboa_porto_air_quality.csv"
+    ficheiro = sys.argv[1] if len(sys.argv) > 1 else "csv/processed_lisboa_porto_air_quality.csv"
     main(ficheiro)
