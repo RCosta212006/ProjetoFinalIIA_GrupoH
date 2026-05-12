@@ -368,5 +368,5 @@ def main(alert_csv):
 
 
 if __name__ == "__main__":
-    ficheiro = sys.argv[1] if len(sys.argv) > 1 else "alert_results.csv"
+    ficheiro = sys.argv[1] if len(sys.argv) > 1 else r"ProjetoFinalIIA_GrupoH\Modulo_1\alert_results.csv"
     main(ficheiro)

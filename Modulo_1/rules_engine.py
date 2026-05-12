@@ -109,5 +109,5 @@ def main(input_csv):
 
 
 if __name__ == "__main__":
-    ficheiro = sys.argv[1] if len(sys.argv) > 1 else "processed_lisboa_porto_air_quality.csv"
+    ficheiro = sys.argv[1] if len(sys.argv) > 1 else "ProjetoFinalIIA_GrupoH\Modulo_1\processed_lisboa_porto_air_quality.csv"
     main(ficheiro)
