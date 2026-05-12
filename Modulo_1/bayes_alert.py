@@ -1,5 +1,5 @@
 import pandas as pd
-import sys
+import os
 from itertools import product
 
 
@@ -368,5 +368,11 @@ def main(alert_csv):
 
 
 if __name__ == "__main__":
-    ficheiro = sys.argv[1] if len(sys.argv) > 1 else r"ProjetoFinalIIA_GrupoH\Modulo_1\alert_results.csv"
+    pasta_modulo1 = os.path.dirname(os.path.abspath(__file__))
+
+    ficheiro = os.path.join(
+        pasta_modulo1,
+        "alert_results.csv"
+    )
+
     main(ficheiro)

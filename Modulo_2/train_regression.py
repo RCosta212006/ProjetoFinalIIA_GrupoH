@@ -11,7 +11,10 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 # 1. Definir Caminhos
 pasta_atual = os.path.dirname(os.path.abspath(__file__))
-caminho_csv = os.path.join(pasta_atual, "processed_lisboa_porto_air_quality.csv")
+
+# Sobe de Modulo_2 para ProjetoFinalIIA_GrupoH
+pasta_projeto = os.path.dirname(pasta_atual)
+caminho_csv = os.path.join(pasta_projeto,"processed_lisboa_porto_air_quality.csv")
 caminho_metricas = os.path.join(pasta_atual, "metrics.csv")
 caminho_modelo = os.path.join(pasta_atual, "melhor_modelo_regressao.pkl")
 

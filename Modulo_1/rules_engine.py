@@ -1,6 +1,5 @@
 import pandas as pd
-import sys
-
+import os
 
 def sistema_de_regras(row):
     alertas = []
@@ -87,8 +86,26 @@ def sistema_de_regras(row):
 
 
 # Cria a função principal do programa
-def main(input_csv):
-    df = pd.read_csv(input_csv, sep=";")
+def main():
+    # Pasta do ficheiro rules_engine.py
+    pasta_modulo1 = os.path.dirname(os.path.abspath(__file__))
+
+    # Pasta principal do projecto
+    pasta_projeto = os.path.dirname(pasta_modulo1)
+    # Caminho do CSV de entrada
+    caminho_input = os.path.join(
+        pasta_projeto,
+        "processed_lisboa_porto_air_quality.csv"
+    )
+
+    # Caminho do CSV de saída
+    caminho_output = os.path.join(
+        pasta_modulo1,
+        "alert_results.csv"
+    )
+
+    df = pd.read_csv(caminho_input, sep=";")
+
 
     # Cria uma cópia da tabela original
     # Assim, o programa mantém os dados originais e acrescenta novas colunas
@@ -104,10 +121,9 @@ def main(input_csv):
     )
 
     # Grava a tabela final no ficheiro alert_results.csv.
-    resultados.to_csv("alert_results.csv", index=False)
-    print("Ficheiro alert_results.csv criado com sucesso.")
+    resultados.to_csv(caminho_output, index=False)
+    print(f"Ficheiro criado em: {caminho_output}")
 
 
 if __name__ == "__main__":
-    ficheiro = sys.argv[1] if len(sys.argv) > 1 else "ProjetoFinalIIA_GrupoH\Modulo_1\processed_lisboa_porto_air_quality.csv"
-    main(ficheiro)
+    main()
