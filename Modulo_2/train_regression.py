@@ -31,7 +31,7 @@ except FileNotFoundError:
 df.columns = df.columns.str.lower()
 
 # Converter datetime e criar variáveis temporais
-df['datetime'] = pd.to_datetime(df['datetime'])
+df['datetime'] = pd.to_datetime(df['datetime'], format='%d/%m/%y %H:%M')
 df['hour'] = df['datetime'].dt.hour
 df['day'] = df['datetime'].dt.day
 df['month'] = df['datetime'].dt.month
