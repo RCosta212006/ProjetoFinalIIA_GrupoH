@@ -1,14 +1,14 @@
 # Módulo 3 — Exemplos de Prompts e Análise dos Outputs
 
-## Objectivo
+## Objetivo
 
-Este ficheiro documenta três variantes de prompt engineering testadas no Módulo 3. O objectivo foi observar como a alteração da formulação do pedido à IA generativa influencia o tom, a estrutura, o detalhe técnico e a utilidade dos relatórios gerados em PDF.
+Este ficheiro documenta três variantes de prompt engineering testadas no Módulo 3. O objetivo foi observar como a alteração da formulação do pedido à IA generativa influencia o tom, a estrutura, o detalhe técnico e a utilidade dos relatórios gerados em PDF.
 
-Os relatórios foram gerados a partir dos dados do `alert_results.csv` e das métricas do `metrics.csv`, criando um PDF por tipo de alerta. Cada PDF inclui várias perspectivas: Cidadão, Protecção Civil, Presidente da Câmara, Técnico de Dados Municipal e Limitações e Riscos Éticos.
+Os relatórios foram gerados a partir dos dados do `alert_results.csv` e das métricas do `metrics.csv`, criando um PDF por tipo de alerta. Cada PDF inclui várias perspetivas: Cidadão, Proteção Civil, Presidente da Câmara, Técnico de Dados Municipal e Limitações e Riscos Éticos.
 
 ---
 
-# Prompt 1 — Prompt Estruturado Multi-perspectiva
+# Prompt 1 — Prompt Estruturado Multi-perspetiva
 
 ## Técnica usada
 
@@ -19,15 +19,15 @@ Esta variante obriga a IA a seguir uma estrutura fixa e a adaptar o conteúdo a 
 ## Prompt
 
 ```text
-Actua como um Sistema de Inteligência Urbana para uma cidade sustentável.
+Atua como um Sistema de Inteligência Urbana para uma cidade sustentável.
 
-Recebeste dados reais dos Módulos 1 e 2 do projecto:
+Recebeste dados reais dos Módulos 1 e 2 do projeto:
 
 {resumo}
 
 O alerta em análise é: "{alerta}"
 
-Gera um relatório em português de Portugal para ser convertido directamente num ficheiro PDF.
+Gera um relatório em português de Portugal para ser convertido diretamente num ficheiro PDF.
 
 REGRAS IMPORTANTES DE FORMATAÇÃO:
 Não uses Markdown.
@@ -48,7 +48,7 @@ Se existirem métricas do Módulo 2, usa-as para comentar a fiabilidade dos mode
 Não inventes valores, percentagens, métricas ou conclusões que não estejam nos dados.
 Se algum dado estiver em falta, escreve claramente que esse dado não está disponível.
 
-O relatório deve estar dividido exactamente nestas secções:
+O relatório deve estar dividido exatamente nestas secções:
 
 1. Resumo Executivo
 Escreve no máximo 200 palavras.
@@ -65,26 +65,26 @@ percentagem de ocorrência;
 principais acções recomendadas associadas ao alerta;
 valores ambientais relevantes, se existirem no resumo.
 
-3. Perspectiva do Cidadão
+3. Perspetiva do Cidadão
 Usa linguagem simples, empática e directa.
 Explica como este alerta pode afectar o dia-a-dia.
 Dá recomendações práticas de saúde, segurança e prevenção.
 Evita linguagem demasiado técnica.
 
-4. Perspectiva da Protecção Civil
+4. Perspetiva da Protecção Civil
 Usa linguagem operacional.
 Explica como este alerta pode apoiar decisões no terreno.
 Refere medidas de prevenção, resposta e priorização de meios.
 Comenta os riscos de falsos positivos e falsos negativos.
 Relaciona a resposta operacional com a frequência do alerta.
 
-5. Perspectiva do Presidente da Câmara
+5. Perspetiva do Presidente da Câmara
 Usa linguagem formal e estratégica.
 Explica a importância deste alerta para a gestão da cidade.
 Inclui 2 a 3 recomendações de acção para políticas públicas.
 Relaciona o alerta com planeamento urbano, mobilidade, saúde pública ou comunicação com cidadãos.
 
-6. Perspectiva do Técnico de Dados Municipal
+6. Perspetiva do Técnico de Dados Municipal
 Usa linguagem analítica.
 Interpreta os dados do alerta.
 Comenta a qualidade e limitações dos dados.
@@ -194,13 +194,13 @@ O principal objetivo da Prompt 1 foi gerar um relatório geral a partir dos dado
 
 A prompt pediu à IA para transformar os resultados do sistema de alertas e dos modelos de machine learning num relatório compreensível, incluindo:
 
-- resumo executivo;
-- recomendações de acção;
-- limitações;
-- riscos éticos;
-- interpretação dos resultados.
+- Resumo executivo;
+- Recomendações de ação;
+- Limitações;
+- Riscos éticos;
+- Interpretação dos resultados.
 
-Esta prompt procurou avaliar se a IA conseguia organizar a informação de forma clara, seguindo uma estrutura fixa e adaptando o conteúdo a diferentes perspectivas institucionais e sociais.
+Esta prompt procurou avaliar se a IA conseguia organizar a informação de forma clara, seguindo uma estrutura fixa e adaptando o conteúdo a diferentes perspetivas institucionais e sociais.
 
 ---
 
@@ -208,7 +208,7 @@ Esta prompt procurou avaliar se a IA conseguia organizar a informação de forma
 
 Esta foi a variante mais adequada para a entrega final, porque produziu relatórios completos e consistentes. A estrutura fixa garantiu que todos os PDFs tivessem as mesmas secções, facilitando a comparação entre alertas.
 
-Os outputs passaram a incluir dados concretos, como número de ocorrências, percentagem de ocorrência, acções recomendadas e métricas dos modelos. Por exemplo, o relatório de `humidade_baixa` indica 2217 ocorrências, correspondendo a 20,59% dos registos analisados. O relatório de `poluicao_no2_alta` indica 5702 ocorrências, representando 52,95% dos registos, mostrando que este é o alerta mais frequente e estruturalmente mais relevante.
+Os outputs passaram a incluir dados concretos, como número de ocorrências, percentagem de ocorrência, ações recomendadas e métricas dos modelos. Por exemplo, o relatório de `humidade_baixa` indica 2217 ocorrências, correspondendo a 20,59% dos registos analisados. O relatório de `poluicao_no2_alta` indica 5702 ocorrências, representando 52,95% dos registos, mostrando que este é o alerta mais frequente e estruturalmente mais relevante.
 
 Esta prompt também ajudou a reduzir respostas vagas, porque obrigou a IA a usar os valores fornecidos no resumo e a não inventar métricas. A principal limitação observada foi que, apesar da instrução para não usar Markdown, a IA ainda pode ocasionalmente gerar símbolos ou formatação próxima de Markdown, sendo por isso necessária a função de limpeza antes da criação do PDF.
 
@@ -226,7 +226,7 @@ A Prompt 1 também mostrou que, mesmo sem exemplos ou papéis definidos, a IA co
 
 ### Limitações da Prompt 1
 
-A principal limitação da Prompt 1 é que o output tende a ser mais genérico. Como não existe uma perspectiva específica nem uma técnica de adaptação ao público, a IA pode produzir uma resposta menos personalizada.
+A principal limitação da Prompt 1 é que o output tende a ser mais genérico. Como não existe uma perspetiva específica nem uma técnica de adaptação ao público, a IA pode produzir uma resposta menos personalizada.
 
 Outra limitação é que, se a prompt não obrigar explicitamente a usar valores concretos dos ficheiros `alert_results.csv` e `metrics.csv`, a IA pode focar-se mais em explicações gerais do que em dados quantitativos.
 
@@ -236,11 +236,11 @@ Também existe o risco de a resposta não distinguir claramente entre dados obse
 
 ### Conclusão da análise da Prompt 1
 
-A Prompt 1 foi eficaz para produzir uma resposta geral e estruturada sobre os resultados do projecto. A sua simplicidade facilitou a geração rápida de um relatório inicial.
+A Prompt 1 foi eficaz para produzir uma resposta geral e estruturada sobre os resultados do projeto. A sua simplicidade facilitou a geração rápida de um relatório inicial.
 
 No entanto, por seguir uma estrutura bastante rígida, o output pode tornar-se menos flexível e menos criativo. A adaptação aos públicos existe, mas é feita dentro de um formato muito controlado.
 
-Esta prompt demonstra bem a utilidade do zero-shot prompting, mas também mostra as suas limitações. Para a entrega final, esta prompt foi a mais adequada, porque combina estrutura fixa, várias perspectivas, dados quantitativos e uma secção crítica sobre limitações e riscos éticos.
+Esta prompt demonstra bem a utilidade do zero-shot prompting, mas também mostra as suas limitações. Para a entrega final, esta prompt foi a mais adequada, porque combina estrutura fixa, várias perspetivas, dados quantitativos e uma secção crítica sobre limitações e riscos éticos.
 
 ---
 
@@ -255,7 +255,7 @@ Esta variante dá prioridade à clareza comunicacional, simulando que a IA escre
 ## Prompt
 
 ```text
-Actua como um gabinete municipal de comunicação de risco ambiental.
+Atua como um gabinete municipal de comunicação de risco ambiental.
 
 Recebeste os seguintes dados dos Módulos 1 e 2:
 
@@ -368,14 +368,14 @@ estratégia de proteção ambiental.
 ---
 
 
-### Objectivo da Prompt 2
+### Objetivo da Prompt 2
 
-O principal objectivo desta prompt foi testar se a IA conseguia adaptar a linguagem, o foco e o nível técnico da resposta consoante o destinatário.
+O principal objetivo desta prompt foi testar se a IA conseguia adaptar a linguagem, o foco e o nível técnico da resposta consoante o destinatário.
 
-A mesma informação sobre alertas ambientais e métricas dos modelos foi reorganizada em várias perspectivas:
+A mesma informação sobre alertas ambientais e métricas dos modelos foi reorganizada em várias perspetivas:
 
 - para o cidadão, com linguagem simples e conselhos práticos;
-- para a Protecção Civil, com foco operacional;
+- para a Proteção Civil, com foco operacional;
 - para o Presidente da Câmara, com foco estratégico e político;
 - para o Técnico de Dados Municipal, com análise mais técnica dos modelos e limitações.
 
@@ -383,11 +383,11 @@ A mesma informação sobre alertas ambientais e métricas dos modelos foi reorga
 
 ## Análise do output
 
-Esta prompt gerou respostas mais acessíveis e orientadas para comunicação pública. A seção do cidadão tornou-se mais clara, com recomendações práticas como evitar esforço físico ao ar livre, proteger grupos vulneráveis e acompanhar avisos municipais.
+Esta prompt gerou respostas mais acessíveis e orientadas para comunicação pública. A secção do cidadão tornou-se mais clara, com recomendações práticas como evitar esforço físico ao ar livre, proteger grupos vulneráveis e acompanhar avisos municipais.
 
 Nos alertas ligados à qualidade do ar, como `ozono_alto`, `particulas_pm10_altas`, `particulas_pm25_altas` e `poluicao_no2_alta`, a IA explicou de forma compreensível os efeitos na saúde respiratória. No relatório de `ozono_alto`, por exemplo, o texto identifica o ozono troposférico como poluente que pode irritar pulmões e olhos, recomendando evitar exercício intenso ao ar livre em períodos críticos.
 
-A vantagem desta variante é a facilidade de leitura. A desvantagem é que o relatório tende a ser menos técnico, usando as métricas do Módulo 2 de forma mais resumida. Assim, esta prompt seria melhor para um relatório de divulgação pública, mas menos completa para demonstrar a componente técnica do projecto.
+A vantagem desta variante é a facilidade de leitura. A desvantagem é que o relatório tende a ser menos técnico, usando as métricas do Módulo 2 de forma mais resumida. Assim, esta prompt seria melhor para um relatório de divulgação pública, mas menos completa para demonstrar a componente técnica do projeto.
 
 ---
 
@@ -397,7 +397,7 @@ A principal vantagem da Prompt 2 foi a sua capacidade de adaptar a comunicação
 
 Outro ponto positivo foi a clareza das recomendações. A resposta para o cidadão ficou mais acessível, enquanto a resposta para entidades técnicas manteve maior detalhe operacional e analítico.
 
-A prompt também ajudou a demonstrar que a engenharia de prompts influencia directamente o resultado. A IA não respondeu apenas com um relatório genérico; produziu conteúdos diferenciados consoante a função de cada interveniente na cidade.
+A prompt também ajudou a demonstrar que a engenharia de prompts influencia diretamente o resultado. A IA não respondeu apenas com um relatório genérico; produziu conteúdos diferenciados consoante a função de cada interveniente na cidade.
 
 ---
 
@@ -407,7 +407,7 @@ Apesar das vantagens, a Prompt 2 pode gerar respostas menos uniformes do que uma
 
 Outra limitação é que, se a prompt não obrigar explicitamente a usar valores concretos do `alert_results.csv` e do `metrics.csv`, a IA pode produzir uma resposta mais genérica. Por isso, é importante incluir no prompt instruções como: "usa obrigatoriamente o número de ocorrências, percentagem de ocorrência e métricas dos modelos".
 
-Além disso, como esta prompt incentiva uma resposta mais interpretativa, existe maior risco de a IA extrapolar conclusões que não estão directamente nos dados. Isto reforça a necessidade de validação humana.
+Além disso, como esta prompt incentiva uma resposta mais interpretativa, existe maior risco de a IA extrapolar conclusões que não estão diretamente nos dados. Isto reforça a necessidade de validação humana.
 
 ---
 
@@ -430,7 +430,7 @@ Esta variante obriga a IA a assumir um papel mais técnico, valorizando a interp
 ## Prompt
 
 ```text
-Actua como um Técnico de Dados Municipal responsável por apoiar decisões da Protecção Civil e da Câmara Municipal.
+Atua como um Técnico de Dados Municipal responsável por apoiar decisões da Proteção Civil e da Câmara Municipal.
 
 Foram-te fornecidos dados reais do sistema:
 
@@ -451,7 +451,7 @@ Divide o relatório nas seguintes secções:
 Resume o alerta, a sua frequência e a sua relevância operacional.
 
 2. Análise Quantitativa do Alerta
-Inclui número de ocorrências, percentagem de ocorrência, acções recomendadas e médias ambientais.
+Inclui número de ocorrências, percentagem de ocorrência, ações recomendadas e médias ambientais.
 Interpreta a importância desses valores.
 
 3. Interpretação Operacional para Protecção Civil
@@ -538,19 +538,19 @@ garantindo que as políticas de proteção civil são sustentadas por evidência
 
 ---
 
-### Objectivo da Prompt 3
+### Objetivo da Prompt 3
 
 O principal objetivo da Prompt 3 foi testar se a IA conseguia gerar um relatório mais controlado e padronizado.
 
 Ao contrário de uma prompt mais livre, esta abordagem obriga a IA a seguir uma sequência lógica de secções. Isto ajuda a garantir que todos os pontos importantes são incluídos:
 
-- resumo executivo;
-- dados quantitativos do alerta;
-- interpretação para diferentes públicos;
-- recomendações de acção;
-- análise das métricas dos modelos;
-- limitações e riscos éticos;
-- conclusão.
+- Resumo executivo;
+- Dados quantitativos do alerta;
+- Interpretação para diferentes públicos;
+- Recomendações de ação;
+- Análise das métricas dos modelos;
+- Limitações e riscos éticos;
+- Conclusão.
 
 Assim, a Prompt 3 foi pensada para produzir um output mais próximo do formato final exigido para os PDFs do Módulo 3.
 
@@ -560,9 +560,9 @@ Assim, a Prompt 3 foi pensada para produzir um output mais próximo do formato f
 
 Esta prompt produziu relatórios mais técnicos e mais adequados à avaliação académica. A secção do Técnico de Dados Municipal ficou mais forte, porque passou a incluir a comparação dos modelos do Módulo 2.
 
-Nos PDFs gerados, a IA identificou correctamente que o `Random Forest Classifier` obteve melhor desempenho na classificação, referindo valores como precisão de 1,00 e F1-Score de 0,97. Também comentou a regressão para previsão de NO2, referindo valores de R2 aproximadamente entre 0,70 e 0,71, o que foi interpretado como capacidade preditiva moderada.
+Nos PDFs gerados, a IA identificou corretamente que o `Random Forest Classifier` obteve melhor desempenho na classificação, referindo valores como precisão de 1,00 e F1-Score de 0,97. Também comentou a regressão para previsão de NO2, referindo valores de R2 aproximadamente entre 0,70 e 0,71, o que foi interpretado como capacidade preditiva moderada.
 
-Esta variante é a melhor para justificar a componente científica do projecto, porque liga diretamente os alertas do Módulo 1 às métricas do Módulo 2. No entanto, pode gerar textos mais densos e menos acessíveis ao cidadão comum.
+Esta variante é a melhor para justificar a componente científica do projeto, porque liga diretamente os alertas do Módulo 1 às métricas do Módulo 2. No entanto, pode gerar textos mais densos e menos acessíveis ao cidadão comum.
 
 ---
 
@@ -596,19 +596,19 @@ A técnica de structured prompting mostrou-se especialmente útil porque permiti
 
 No entanto, esta abordagem pode reduzir a flexibilidade da resposta e gerar alguma repetição entre relatórios. Por isso, a melhor solução foi combinar esta técnica com instruções adicionais da prompt original, como a obrigação de usar dados concretos, evitar Markdown e incluir sempre uma análise crítica dos riscos éticos.
 
-Em suma, a Prompt 3 é uma das mais adequadas para este projecto, porque aproxima a geração automática da IA das exigências formais da entrega final.
+Em suma, a Prompt 3 é uma das mais adequadas para este projeto, porque aproxima a geração automática da IA das exigências formais da entrega final.
 
 ---
 
 # Comparação entre as três variantes de prompt
 
-A primeira prompt, estruturada multi-perspectiva, foi a mais equilibrada. Produziu relatórios completos, com as quatro perspetivas pedidas e com uma organização consistente entre todos os PDFs.
+A primeira prompt, estruturada multi-perspetiva, foi a mais equilibrada. Produziu relatórios completos, com as quatro perspetivas pedidas e com uma organização consistente entre todos os PDFs.
 
 A segunda prompt, orientada para comunicação pública, foi mais clara e acessível. Ajudou a transformar dados técnicos em recomendações práticas para cidadãos, mas reduziu o detalhe técnico das métricas.
 
 A terceira prompt, técnico-estratégica, foi a mais forte para análise académica. Deu mais importância às métricas dos modelos, à distinção entre dados observados e previsões, e à validação humana. Contudo, é menos simples para leitura pública.
 
-Assim, a melhor estratégia para o projecto foi combinar as três abordagens: usar uma estrutura fixa, incluir perspectivas diferentes e obrigar a IA a fundamentar o relatório com dados quantitativos.
+Assim, a melhor estratégia para o projeto foi combinar as três abordagens: usar uma estrutura fixa, incluir perspetivas diferentes e obrigar a IA a fundamentar o relatório com dados quantitativos.
 
 ---
 
@@ -628,7 +628,7 @@ Foram gerados relatórios PDF para os principais tipos de alerta presentes no `a
 - `risco_incendio_moderado`;
 - `risco_nevoeiro`.
 
-Esta abordagem cumpre o objectivo definido para o Módulo 3: gerar um relatório separado por tipo de alerta, com várias perspectivas e com uma secção de limitações e riscos éticos.
+Esta abordagem cumpre o objetivo definido para o Módulo 3: gerar um relatório separado por tipo de alerta, com várias perspetivas e com uma secção de limitações e riscos éticos.
 
 ## Alertas mais relevantes
 
@@ -640,165 +640,44 @@ O alerta `frio_extremo` teve 1176 ocorrências, correspondendo a 10,92% dos regi
 
 O alerta `risco_incendio_moderado` surgiu em 888 ocorrências, ou 8,25% dos registos, sendo importante para vigilância preventiva em zonas verdes e gestão de riscos ambientais.
 
-Alertas como `ozono_alto`, `particulas_pm10_altas` e `risco_nevoeiro` foram menos frequentes, mas continuam relevantes porque podem afectar directamente a saúde pública, a mobilidade e a segurança rodoviária.
-
-## Qualidade dos outputs
-
-Os PDFs apresentam uma estrutura consistente, normalmente dividida em oito secções:
-
-1. Resumo Executivo;
-2. Dados Observados no Sistema;
-3. Perspectiva do Cidadão;
-4. Perspectiva da Protecção Civil;
-5. Perspectiva do Presidente da Câmara;
-6. Perspectiva do Técnico de Dados Municipal;
-7. Limitações e Riscos Éticos;
-8. Conclusão.
-
-Esta estrutura facilita a leitura e mostra capacidade de adaptação da IA generativa a diferentes públicos. A perspectiva do cidadão usa linguagem simples e recomendações práticas. A perspectiva da Protecção Civil foca-se na resposta operacional. A perspectiva do Presidente da Câmara apresenta recomendações estratégicas. A perspectiva do Técnico de Dados Municipal interpreta os dados e métricas dos modelos.
+Alertas como `ozono_alto`, `particulas_pm10_altas` e `risco_nevoeiro` foram menos frequentes, mas continuam relevantes porque podem afetar diretamente a saúde pública, a mobilidade e a segurança rodoviária.
 
 ## Integração dos Módulos 1, 2 e 3
 
-Os relatórios mostram uma boa integração entre os três módulos do projecto.
+Os relatórios mostram uma boa integração entre os três módulos do projeto.
 
-O Módulo 1 fornece os alertas e as acções recomendadas.
+O Módulo 1 fornece os alertas e as ações recomendadas.
 O Módulo 2 fornece as métricas dos modelos de classificação e regressão.
 O Módulo 3 transforma esses resultados em relatórios interpretáveis, adaptados a diferentes públicos.
 
-Esta integração é especialmente visível em relatórios como `risco_calor_extremo`, onde são apresentados dados ambientais médios, acções recomendadas e métricas do modelo Random Forest Classifier. Também é visível no relatório `risco_nevoeiro`, que reconhece a baixa frequência do evento e alerta para a possibilidade de enviesamento por baixa amostragem.
+Esta integração é especialmente visível em relatórios como `risco_calor_extremo`, onde são apresentados dados ambientais médios, ações recomendadas e métricas do modelo Random Forest Classifier. Também é visível no relatório `risco_nevoeiro`, que reconhece a baixa frequência do evento e alerta para a possibilidade de enviesamento por baixa amostragem.
 
 ## Pontos fortes dos outputs
 
 Os principais pontos fortes dos PDFs são:
 
-- utilização de dados quantitativos reais;
-- organização clara por secções;
-- adaptação do discurso a diferentes públicos;
-- inclusão de recomendações práticas e estratégicas;
-- referência a métricas de machine learning;
-- inclusão de riscos éticos e necessidade de validação humana.
+- Utilização de dados quantitativos reais;
+- Organização clara por secções;
+- Adaptação do discurso a diferentes públicos;
+- Inclusão de recomendações práticas e estratégicas;
+- Referência a métricas de machine learning;
+- Inclusão de riscos éticos e necessidade de validação humana.
 
 ## Limitações observadas
 
 Apesar da boa qualidade geral, existem algumas limitações:
 
-Apesar da boa qualidade geral, existem algumas limitações:
-
-- a IA por vezes usa interpretações fortes a partir de poucos dados, como no caso de `risco_nevoeiro`, que tem apenas 4 ocorrências;
-- alguns relatórios apresentam métricas do Módulo 2 de forma repetida, sem as relacionar directamente com o alerta específico;
-- em certos casos, a IA pode afirmar ausência de alguns dados ambientais, mesmo quando o dataset pode conter essas colunas;
-- o estilo linguístico nem sempre é totalmente uniforme entre PDFs;
-- a IA pode transformar métricas em conclusões demasiado confiantes, pelo que a revisão humana continua indispensável.
-
-# Secção Ético-Crítica
-
-## Enquadramento
-
-A utilização de IA generativa no Módulo 3 permitiu transformar dados técnicos dos Módulos 1 e 2 em relatórios compreensíveis para diferentes públicos, como cidadãos, Protecção Civil, Presidente da Câmara e técnicos municipais.
-
-Apesar desta utilidade, é importante reconhecer que a IA generativa não deve ser usada como uma fonte absoluta de verdade. Os relatórios produzidos devem ser vistos como documentos de apoio à decisão e não como decisões finais.
-
----
-
-## Transparência
-
-A transparência é essencial quando se utilizam sistemas de IA em contexto urbano e ambiental.
-
-Neste projecto, os relatórios foram gerados a partir de dados provenientes do `alert_results.csv` e do `metrics.csv`. No entanto, o processo de geração de texto depende de um modelo externo de IA, cujo funcionamento interno não é totalmente visível para o utilizador.
-
-Por isso, é importante deixar claro:
-
-- que os textos foram gerados com apoio de IA generativa;
-- que os dados usados vêm dos módulos anteriores;
-- que as conclusões devem ser revistas por humanos;
-- que o modelo pode reorganizar ou interpretar os dados de forma não totalmente previsível.
-
-A transparência aumenta a confiança dos utilizadores e permite que cidadãos e decisores compreendam melhor os limites do sistema.
-
----
-
-## Enviesamentos nos dados
-
-Os resultados gerados pela IA dependem directamente da qualidade dos dados de entrada.
-
-Se os dados ambientais tiverem falhas, valores extremos, sensores mal calibrados ou cobertura desigual entre zonas da cidade, os relatórios também podem reflectir essas limitações.
-
-Por exemplo, se existirem mais sensores numa zona urbana com muito tráfego do que numa zona periférica, o sistema pode dar maior importância aos problemas dessa zona e sub-representar outras áreas da cidade.
-
-Isto pode gerar enviesamentos na análise e influenciar recomendações futuras. Assim, os dados devem ser avaliados regularmente, garantindo que representam a cidade de forma justa e equilibrada.
-
----
-
-## Risco de alucinações da IA
-
-Um dos principais riscos da IA generativa é a possibilidade de produzir afirmações incorrectas, exageradas ou não suportadas pelos dados. Este fenómeno é conhecido como alucinação.
-
-Mesmo quando a prompt pede explicitamente para não inventar valores, a IA pode:
-
-- interpretar uma correlação como se fosse causalidade;
-- apresentar conclusões demasiado fortes;
-- preencher lacunas com explicações plausíveis, mas não confirmadas;
-- dar mais confiança aos resultados do que os dados justificam.
-
-Por isso, todos os relatórios gerados devem ser revistos antes de serem usados em contexto real.
-
-No caso deste projecto, a revisão humana é especialmente importante porque os relatórios abordam temas sensíveis como saúde pública, mobilidade, poluição, risco de incêndio, frio extremo e segurança rodoviária.
-
----
-
-## Dependência excessiva de automação
-
-Outro risco importante é a dependência excessiva de sistemas automáticos.
-
-A IA pode ajudar a resumir dados, organizar informação e adaptar a comunicação a diferentes públicos, mas não deve substituir especialistas humanos.
-
-Decisões sobre evacuações, restrições de tráfego, avisos à população, alocação de equipas de emergência ou políticas públicas devem continuar a ser tomadas por pessoas qualificadas, com conhecimento técnico e contexto local.
-
-O sistema deve funcionar como apoio à decisão, não como substituto da decisão humana.
-
----
-
-## Falsos positivos e falsos negativos
-
-Nos sistemas de alerta, os erros podem ter consequências importantes.
-
-Um falso positivo acontece quando o sistema indica um alerta que, na realidade, não representa um risco significativo. Isto pode causar desperdício de recursos, alarmismo e perda de confiança por parte da população.
-
-Um falso negativo acontece quando o sistema não identifica um risco real. Este caso pode ser ainda mais grave, porque pode deixar cidadãos e serviços de emergência desprevenidos.
-
-Por isso, os resultados devem ser sempre cruzados com validação humana, observação no terreno e outros dados disponíveis.
-
----
-
-## Responsabilidade humana
-
-A responsabilidade final pelas decisões não deve ser atribuída à IA.
-
-Mesmo que o relatório seja gerado automaticamente, cabe aos técnicos, decisores e entidades responsáveis confirmar se:
-
-- os dados estão correctos;
-- as conclusões fazem sentido;
-- as recomendações são proporcionais;
-- a informação é adequada ao público-alvo;
-- não existem riscos de má interpretação.
-
-A IA generativa deve ser usada como ferramenta auxiliar, mantendo sempre supervisão humana.
-
----
-
-## Privacidade e segurança dos dados
-
-Embora este projecto trabalhe com dados ambientais e não com dados pessoais directos, continua a ser importante garantir boas práticas de segurança.
-
-A chave da API usada no Módulo 3 deve ficar num ficheiro `.env`, que não deve ser enviado para repositórios públicos. Isto evita exposição indevida da conta usada para chamar o modelo externo de IA.
-
-Além disso, qualquer sistema real de cidade inteligente deve ter especial cuidado caso venha a integrar dados sensíveis, como localização de cidadãos, mobilidade individual ou dados de saúde.
+- A IA por vezes usa interpretações fortes a partir de poucos dados, como no caso de `risco_nevoeiro`, que tem apenas 4 ocorrências;
+- Alguns relatórios apresentam métricas do Módulo 2 de forma repetida, sem as relacionar diretamente com o alerta específico;
+- Em certos casos, a IA pode afirmar ausência de alguns dados ambientais, mesmo quando o dataset pode conter essas colunas;
+- O estilo linguístico nem sempre é totalmente uniforme entre PDFs;
+- A IA pode transformar métricas em conclusões demasiado confiantes, pelo que a revisão humana continua indispensável.
 
 ---
 
 ## Avaliação crítica dos PDFs gerados
 
-Os PDFs gerados demonstram que a IA generativa consegue adaptar a mesma informação a diferentes públicos. A perspectiva do cidadão tornou os alertas mais acessíveis, a perspectiva da Protecção Civil destacou a resposta operacional, a perspectiva do Presidente da Câmara focou-se em políticas públicas e a perspectiva do Técnico de Dados Municipal analisou métricas e limitações.
+Os PDFs gerados demonstram que a IA generativa consegue adaptar a mesma informação a diferentes públicos. A perspetiva do cidadão tornou os alertas mais acessíveis, a perspetiva da Proteção Civil destacou a resposta operacional, a perspetiva do Presidente da Câmara focou-se em políticas públicas e a perspetiva do Técnico de Dados Municipal analisou métricas e limitações.
 
 No entanto, também se observam limitações. Alguns relatórios podem repetir expressões semelhantes, sobretudo nas secções de ética e validação humana. Além disso, quando um alerta tem poucas ocorrências, como `risco_nevoeiro`, a IA pode produzir uma análise extensa apesar da baixa quantidade de dados disponíveis.
 
@@ -818,9 +697,8 @@ Assim, a IA generativa deve ser entendida como uma ferramenta de apoio à comuni
 
 ## Avaliação crítica final
 
-No geral, os PDFs gerados cumprem bem o objectivo do Módulo 3. A IA generativa foi usada para sintetizar os resultados dos módulos anteriores, gerar recomendações e adaptar a comunicação a vários públicos.
+No geral, os PDFs gerados cumprem bem o objetivo do Módulo 3. A IA generativa foi usada para sintetizar os resultados dos módulos anteriores, gerar recomendações e adaptar a comunicação a vários públicos.
 
-A maior vantagem observada foi a capacidade da IA em transformar dados técnicos em textos úteis para diferentes actores da cidade. No entanto, os outputs não devem ser tratados como decisão final. Devem ser considerados documentos de apoio, sujeitos a validação humana, revisão técnica e confirmação dos dados originais.
+A maior vantagem observada foi a capacidade da IA em transformar dados técnicos em textos úteis para diferentes atores da cidade. No entanto, os outputs não devem ser tratados como decisão final. Devem ser considerados documentos de apoio, sujeitos a validação humana, revisão técnica e confirmação dos dados originais.
 
 Assim, o Módulo 3 demonstra o potencial da IA generativa como ferramenta de comunicação e apoio à decisão em cidades sustentáveis, mas também evidencia riscos importantes como enviesamentos, alucinações e dependência excessiva de automação.
-
