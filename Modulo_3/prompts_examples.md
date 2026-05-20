@@ -690,6 +690,132 @@ Apesar da boa qualidade geral, existem algumas limitações:
 - o estilo linguístico nem sempre é totalmente uniforme entre PDFs;
 - a IA pode transformar métricas em conclusões demasiado confiantes, pelo que a revisão humana continua indispensável.
 
+# Secção Ético-Crítica
+
+## Enquadramento
+
+A utilização de IA generativa no Módulo 3 permitiu transformar dados técnicos dos Módulos 1 e 2 em relatórios compreensíveis para diferentes públicos, como cidadãos, Protecção Civil, Presidente da Câmara e técnicos municipais.
+
+Apesar desta utilidade, é importante reconhecer que a IA generativa não deve ser usada como uma fonte absoluta de verdade. Os relatórios produzidos devem ser vistos como documentos de apoio à decisão e não como decisões finais.
+
+---
+
+## Transparência
+
+A transparência é essencial quando se utilizam sistemas de IA em contexto urbano e ambiental.
+
+Neste projecto, os relatórios foram gerados a partir de dados provenientes do `alert_results.csv` e do `metrics.csv`. No entanto, o processo de geração de texto depende de um modelo externo de IA, cujo funcionamento interno não é totalmente visível para o utilizador.
+
+Por isso, é importante deixar claro:
+
+- que os textos foram gerados com apoio de IA generativa;
+- que os dados usados vêm dos módulos anteriores;
+- que as conclusões devem ser revistas por humanos;
+- que o modelo pode reorganizar ou interpretar os dados de forma não totalmente previsível.
+
+A transparência aumenta a confiança dos utilizadores e permite que cidadãos e decisores compreendam melhor os limites do sistema.
+
+---
+
+## Enviesamentos nos dados
+
+Os resultados gerados pela IA dependem directamente da qualidade dos dados de entrada.
+
+Se os dados ambientais tiverem falhas, valores extremos, sensores mal calibrados ou cobertura desigual entre zonas da cidade, os relatórios também podem reflectir essas limitações.
+
+Por exemplo, se existirem mais sensores numa zona urbana com muito tráfego do que numa zona periférica, o sistema pode dar maior importância aos problemas dessa zona e sub-representar outras áreas da cidade.
+
+Isto pode gerar enviesamentos na análise e influenciar recomendações futuras. Assim, os dados devem ser avaliados regularmente, garantindo que representam a cidade de forma justa e equilibrada.
+
+---
+
+## Risco de alucinações da IA
+
+Um dos principais riscos da IA generativa é a possibilidade de produzir afirmações incorrectas, exageradas ou não suportadas pelos dados. Este fenómeno é conhecido como alucinação.
+
+Mesmo quando a prompt pede explicitamente para não inventar valores, a IA pode:
+
+- interpretar uma correlação como se fosse causalidade;
+- apresentar conclusões demasiado fortes;
+- preencher lacunas com explicações plausíveis, mas não confirmadas;
+- dar mais confiança aos resultados do que os dados justificam.
+
+Por isso, todos os relatórios gerados devem ser revistos antes de serem usados em contexto real.
+
+No caso deste projecto, a revisão humana é especialmente importante porque os relatórios abordam temas sensíveis como saúde pública, mobilidade, poluição, risco de incêndio, frio extremo e segurança rodoviária.
+
+---
+
+## Dependência excessiva de automação
+
+Outro risco importante é a dependência excessiva de sistemas automáticos.
+
+A IA pode ajudar a resumir dados, organizar informação e adaptar a comunicação a diferentes públicos, mas não deve substituir especialistas humanos.
+
+Decisões sobre evacuações, restrições de tráfego, avisos à população, alocação de equipas de emergência ou políticas públicas devem continuar a ser tomadas por pessoas qualificadas, com conhecimento técnico e contexto local.
+
+O sistema deve funcionar como apoio à decisão, não como substituto da decisão humana.
+
+---
+
+## Falsos positivos e falsos negativos
+
+Nos sistemas de alerta, os erros podem ter consequências importantes.
+
+Um falso positivo acontece quando o sistema indica um alerta que, na realidade, não representa um risco significativo. Isto pode causar desperdício de recursos, alarmismo e perda de confiança por parte da população.
+
+Um falso negativo acontece quando o sistema não identifica um risco real. Este caso pode ser ainda mais grave, porque pode deixar cidadãos e serviços de emergência desprevenidos.
+
+Por isso, os resultados devem ser sempre cruzados com validação humana, observação no terreno e outros dados disponíveis.
+
+---
+
+## Responsabilidade humana
+
+A responsabilidade final pelas decisões não deve ser atribuída à IA.
+
+Mesmo que o relatório seja gerado automaticamente, cabe aos técnicos, decisores e entidades responsáveis confirmar se:
+
+- os dados estão correctos;
+- as conclusões fazem sentido;
+- as recomendações são proporcionais;
+- a informação é adequada ao público-alvo;
+- não existem riscos de má interpretação.
+
+A IA generativa deve ser usada como ferramenta auxiliar, mantendo sempre supervisão humana.
+
+---
+
+## Privacidade e segurança dos dados
+
+Embora este projecto trabalhe com dados ambientais e não com dados pessoais directos, continua a ser importante garantir boas práticas de segurança.
+
+A chave da API usada no Módulo 3 deve ficar num ficheiro `.env`, que não deve ser enviado para repositórios públicos. Isto evita exposição indevida da conta usada para chamar o modelo externo de IA.
+
+Além disso, qualquer sistema real de cidade inteligente deve ter especial cuidado caso venha a integrar dados sensíveis, como localização de cidadãos, mobilidade individual ou dados de saúde.
+
+---
+
+## Avaliação crítica dos PDFs gerados
+
+Os PDFs gerados demonstram que a IA generativa consegue adaptar a mesma informação a diferentes públicos. A perspectiva do cidadão tornou os alertas mais acessíveis, a perspectiva da Protecção Civil destacou a resposta operacional, a perspectiva do Presidente da Câmara focou-se em políticas públicas e a perspectiva do Técnico de Dados Municipal analisou métricas e limitações.
+
+No entanto, também se observam limitações. Alguns relatórios podem repetir expressões semelhantes, sobretudo nas secções de ética e validação humana. Além disso, quando um alerta tem poucas ocorrências, como `risco_nevoeiro`, a IA pode produzir uma análise extensa apesar da baixa quantidade de dados disponíveis.
+
+Isto mostra que os outputs são úteis, mas exigem revisão crítica.
+
+---
+
+## Conclusão Ético-Crítica
+
+O Módulo 3 mostra o potencial da IA generativa para apoiar a comunicação de riscos ambientais numa cidade sustentável. A tecnologia permite transformar dados técnicos em relatórios claros, estruturados e adaptados a diferentes públicos.
+
+Contudo, a utilização deste tipo de sistema deve ser acompanhada por princípios de transparência, validação humana, responsabilidade, controlo de enviesamentos e cuidado com possíveis alucinações.
+
+Assim, a IA generativa deve ser entendida como uma ferramenta de apoio à comunicação e à decisão, mas nunca como substituto de especialistas humanos ou de processos institucionais de validação.
+
+---
+
 ## Avaliação crítica final
 
 No geral, os PDFs gerados cumprem bem o objectivo do Módulo 3. A IA generativa foi usada para sintetizar os resultados dos módulos anteriores, gerar recomendações e adaptar a comunicação a vários públicos.
@@ -697,3 +823,4 @@ No geral, os PDFs gerados cumprem bem o objectivo do Módulo 3. A IA generativa 
 A maior vantagem observada foi a capacidade da IA em transformar dados técnicos em textos úteis para diferentes actores da cidade. No entanto, os outputs não devem ser tratados como decisão final. Devem ser considerados documentos de apoio, sujeitos a validação humana, revisão técnica e confirmação dos dados originais.
 
 Assim, o Módulo 3 demonstra o potencial da IA generativa como ferramenta de comunicação e apoio à decisão em cidades sustentáveis, mas também evidencia riscos importantes como enviesamentos, alucinações e dependência excessiva de automação.
+
