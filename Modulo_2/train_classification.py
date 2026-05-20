@@ -8,16 +8,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-# 1. Definir os Caminhos
 pasta_atual = os.path.dirname(os.path.abspath(__file__))
-
-# Sobe de Modulo_2 para ProjetoFinalIIA_GrupoH
 pasta_projeto = os.path.dirname(pasta_atual)
 caminho_csv = os.path.join(pasta_projeto,"processed_lisboa_porto_air_quality.csv")
 caminho_metricas = os.path.join(pasta_atual, "metrics.csv")
 caminho_modelo = os.path.join(pasta_atual, "melhor_modelo_classificacao.pkl")
 
-# 2. Carregar os Dados
 try:
     print("A carregar os dados...")
     df = pd.read_csv(caminho_csv, sep=';')
@@ -25,8 +21,8 @@ except FileNotFoundError:
     print(f"ERRO: Não encontrei o CSV em: {caminho_csv}")
     exit()
 
-# 3. Preparação e Limpeza de Dados
-# Passar para minúsculas para não haver erros
+# 1. Preparação e Limpeza de Dados
+
 df.columns = df.columns.str.lower()
 
 # Converter datetime e criar variáveis temporais
@@ -49,7 +45,7 @@ print(f"Dataset limpo: {df_clean.shape[0]} linhas utilizadas para treinar.")
 # Divisão Treino/Teste (80% / 20%)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 
-# 4. Pipelines de Pré-processamento e Treino (Sem imputação de dados)
+# 2. Pipelines de Pré-processamento e Treino (Sem imputação de dados)
 pipeline_lr = Pipeline([
     ('scaler', StandardScaler()),
     ('modelo', LogisticRegression(max_iter=1000))
@@ -60,7 +56,7 @@ pipeline_rf = Pipeline([
     ('modelo', RandomForestClassifier(random_state=42, n_estimators=100))
 ])
 
-# 5. Treinar os dois modelos
+# 3. Treinar os dois modelos
 print("A treinar a Regressão Logística...")
 pipeline_lr.fit(X_train, y_train)
 preds_lr = pipeline_lr.predict(X_test)
@@ -69,7 +65,7 @@ print("A treinar o Random Forest Classifier...")
 pipeline_rf.fit(X_train, y_train)
 preds_rf = pipeline_rf.predict(X_test)
 
-# 6. Avaliar e Guardar Métricas
+# 4. Avaliar e Guardar Métricas
 def avaliar(nome, y_true, y_pred):
     return {
         'Modelo': nome,
@@ -89,10 +85,8 @@ df_resultados = pd.DataFrame(resultados)
 print("\n=== Resultados da Classificação ===")
 print(df_resultados.to_string(index=False))
 
-# Guardar os resultados no CSV
 df_resultados.to_csv(caminho_metricas, index=False)
 print(f"\nMétricas guardadas em {caminho_metricas}")
 
-# Guardar o melhor modelo 
 joblib.dump(pipeline_rf, caminho_modelo)
 print(f"Melhor modelo guardado em {caminho_modelo}")

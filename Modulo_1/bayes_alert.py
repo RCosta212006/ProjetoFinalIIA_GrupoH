@@ -2,11 +2,6 @@ import pandas as pd
 import os
 from itertools import product
 
-
-# ─────────────────────────────────────────────
-# 1. Discretização dos dados ambientais
-# ─────────────────────────────────────────────
-
 def discretizar(df):
     d = pd.DataFrame()
 
@@ -23,10 +18,6 @@ def discretizar(df):
 
     return d.dropna()
 
-
-# ─────────────────────────────────────────────
-# 2. Classe da Rede Bayesiana
-# ─────────────────────────────────────────────
 
 class BayesianNetwork:
     """
@@ -64,11 +55,9 @@ class BayesianNetwork:
             "poluicao": ["pm10", "no2", "o3", "incendio"]
         }
 
-        # Dicionário para guardar as categorias possíveis de cada variável
         self.categories = {}
 
     def fit(self, df, alpha=1.0):
-    
         #Estima as CPDs através de frequências observadas, usando suavização de Laplace.    
 
         # Percorre todos os nós da rede
@@ -130,12 +119,10 @@ class BayesianNetwork:
         return self
 
     def p_prior(self, node, value):
-        
         #Calcula P(node=value) para nós sem pais.
         return self.cpds[node][()].get(str(value), 0)
 
     def p_cond(self, node, value, evidence):
-        
         #Calcula P(node=value | pais).
         pais = self.parents[node]
 
@@ -242,9 +229,6 @@ class BayesianNetwork:
         return probs
 
     def mostrar_cpds(self):
-        
-        #Mostra as CPDs estimadas.
-
         print("\nCPDs da Rede Bayesiana:\n")
 
         for node, tabela in self.cpds.items():
@@ -258,10 +242,6 @@ class BayesianNetwork:
 
             print()
 
-
-# ─────────────────────────────────────────────
-# 3. Output
-# ─────────────────────────────────────────────
 
 def formatar_probabilidades(resultado):
     linhas = []
@@ -279,10 +259,6 @@ def mostrar_consulta(titulo, resultado):
     print("-" * 60)
     print(formatar_probabilidades(resultado))
 
-
-# ─────────────────────────────────────────────
-# 4. Execução principal
-# ─────────────────────────────────────────────
 
 def main(alert_csv):
     df = pd.read_csv(alert_csv)

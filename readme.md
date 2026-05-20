@@ -28,7 +28,7 @@ Cada módulo utiliza o ficheiro `processed_lisboa_porto_air_quality.csv` ou resu
 ProjetoFinalIIA_GrupoH
 ├── Modulo_1
 │   ├── rules_engine.py
-│   ├── bayes_alerts.py
+│   ├── bayes_alert.py
 │   └── alert_results.csv
 │
 ├── Modulo_2
@@ -36,23 +36,50 @@ ProjetoFinalIIA_GrupoH
 │   ├── train_classification.py
 │   ├── train_regression.py
 │   ├── metrics.csv
-│   └── models
-│       ├── logistic_regression.pkl
-│       ├── random_forest_classifier.pkl
-│       ├── linear_regression_no2.pkl
-│       └── random_forest_regressor_no2.pkl
+│   ├── melhor_modelo_classificacao.pkl
+│   └── melhor_modelo_regressao.pkl
 │
 ├── Modulo_3
 │   ├── gen_report.py
+│   ├── prompts_examples.md
 │   ├── requirements.txt
-│   ├── .env
-│   └── pdfs_alertas
+│   ├── .env.example
+│   │
+│   ├── pdfs_alertas_prompt1
+│   │   ├── frio_extremo.pdf
+│   │   ├── humidade_baixa.pdf
+│   │   ├── ozono_alto.pdf
+│   │   ├── particulas_pm10_altas.pdf
+│   │   ├── particulas_pm25_altas.pdf
+│   │   ├── poluicao_no2_alta.pdf
+│   │   ├── risco_calor_extremo.pdf
+│   │   ├── risco_incendio_moderado.pdf
+│   │   └── risco_nevoeiro.pdf
+│   │
+│   ├── pdfs_alertas_prompt2
+│   │   ├── frio_extremo.pdf
+│   │   ├── humidade_baixa.pdf
+│   │   ├── ozono_alto.pdf
+│   │   ├── particulas_pm10_altas.pdf
+│   │   ├── particulas_pm25_altas.pdf
+│   │   ├── poluicao_no2_alta.pdf
+│   │   ├── risco_calor_extremo.pdf
+│   │   ├── risco_incendio_moderado.pdf
+│   │   └── risco_nevoeiro.pdf
+│   │
+│   └── pdfs_alertas_prompt3
 │       ├── frio_extremo.pdf
 │       ├── humidade_baixa.pdf
 │       ├── ozono_alto.pdf
-│       └── ...
+│       ├── particulas_pm10_altas.pdf
+│       ├── particulas_pm25_altas.pdf
+│       ├── poluicao_no2_alta.pdf
+│       ├── risco_calor_extremo.pdf
+│       ├── risco_incendio_moderado.pdf
+│       └── risco_nevoeiro.pdf
 │
 ├── processed_lisboa_porto_air_quality.csv
+├── Gestao_de_Riscos_Ambientais.png
 └── README.md
 ```
 
@@ -383,22 +410,20 @@ python Modulo_2/train_regression.py processed_lisboa_porto_air_quality.csv --out
 
 O Módulo 3 utiliza uma API externa de IA Generativa para criar relatórios automáticos a partir dos alertas gerados no Módulo 1.
 
-A professora pediu que o resultado final fosse gerado em PDF e não apenas em Markdown.
+O sistema gera um PDF por cada tipo de alerta existente em `alert_results.csv`.
 
-Por isso, o sistema gerar:
+Cada PDF contém:
 
-```text
-1 PDF por cada tipo de alerta existente em alert_results.csv
-```
+- resumo executivo;
+- dados observados no sistema;
+- perspectiva do cidadão;
+- perspectiva da Protecção Civil;
+- perspectiva do Presidente da Câmara;
+- perspectiva do Técnico de Dados Municipal;
+- limitações e riscos éticos;
+- conclusão.
 
-Cada PDF contém várias perspectivas:
-
-- Cidadão;
-- Protecção Civil;
-- Presidente da Câmara;
-- Técnico de Dados Municipal;
-- Limitações e Riscos Éticos.
-
+Além dos PDFs finais, foram testadas três variantes de prompt engineering. Os outputs dessas três experiências foram guardados na pasta `outputs_prompts`, e a análise encontra-se em `prompts_examples.md`.
 ---
 
 ## Ficheiros
@@ -406,9 +431,23 @@ Cada PDF contém várias perspectivas:
 ```text
 Modulo_3
 ├── gen_report.py
+├── prompts_examples.md
 ├── requirements.txt
 ├── .env
-└── pdfs_alertas
+├── pdfs_alertas_prompt1
+│   ├── frio_extremo.pdf
+│   ├── humidade_baixa.pdf
+│   ├── ozono_alto.pdf
+│   ├── particulas_pm10_altas.pdf
+│   ├── particulas_pm25_altas.pdf
+│   ├── poluicao_no2_alta.pdf
+│   ├── risco_calor_extremo.pdf
+│   ├── risco_incendio_moderado.pdf
+│   └── risco_nevoeiro.pdf
+├── pdfs_alertas_prompt2
+│   └── exemplos de PDFs gerados com a segunda prompt
+└── pdfs_alertas_prompt3
+    └── exemplos de PDFs gerados com a terceira prompt
 ```
 
 ---
@@ -424,6 +463,18 @@ O ficheiro `gen_report.py`:
 5. Envia o prompt para uma API externa de IA;
 6. Limpa símbolos de Markdown;
 7. Cria um PDF final por alerta.
+
+---
+
+## Organização dos outputs
+
+Os outputs das três variantes de prompt foram guardados em pastas separadas:
+
+- `pdfs_alertas_prompt1`: contém os PDFs finais gerados com a prompt estruturada multi-perspectiva;
+- `pdfs_alertas_prompt2`: contém os PDFs gerados com a prompt orientada para comunicação pública;
+- `pdfs_alertas_prompt3`: contém os PDFs gerados com a prompt técnico-estratégica.
+
+Esta organização permite comparar directamente como diferentes estratégias de prompt engineering alteram o tipo de relatório produzido pela IA generativa.
 
 ---
 

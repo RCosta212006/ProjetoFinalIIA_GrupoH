@@ -16,7 +16,6 @@ def sistema_de_regras(row):
     pm25 = row.get("PM2.5", 0)
     o3 = row.get("O3", 0)
 
-    # Regras -> Adiciona o alerta na lista de alertas e a ação associada à lista de ações
     # Risco de incêndio muito alto
     if temp >= 30 and humidade <= 35 and vento >= 20:
         alertas.append("risco_incendio_alto")
@@ -85,7 +84,6 @@ def sistema_de_regras(row):
     return "; ".join(alertas), "; ".join(acoes)
 
 
-# Cria a função principal do programa
 def main():
     # Pasta do ficheiro rules_engine.py
     pasta_modulo1 = os.path.dirname(os.path.abspath(__file__))
